@@ -33,7 +33,7 @@ npm install
 <br>
 
 #### Passo 03
-Atualize o arquivo **`.env`**.env na raiz do projeto, ajustando os parâmetros da variável de ambiente **`DATABASE_URL`**, que contém a URL de conexão com o banco de dados PostgreSQL, de acordo com as especificações fornecidas. Isso permitirá a correta configuração da conexão com o banco de dados.
+Atualize o arquivo **`.env`** na raiz do projeto, ajustando os parâmetros da variável de ambiente **`DATABASE_URL`**, que contém a URL de conexão com o banco de dados PostgreSQL, de acordo com as especificações fornecidas. Isso permitirá a correta configuração da conexão com o banco de dados.
 ```
 DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"
 ```
