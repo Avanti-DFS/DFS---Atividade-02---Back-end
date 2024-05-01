@@ -98,7 +98,7 @@ ___
 
 ##### PUT /locais/:id
 
-- **Exemplo de URL:** http://localhost:3000/locais/{id}
+- **Exemplo de URL:** http://localhost:3000/locais/:id
 - **Descrição:** Atualiza o registro de um local no banco de dados a partir do seu id.
 - **Corpo da requisição:** em JSON:
 ```json
@@ -120,7 +120,7 @@ ___
 <br>
 
 ##### DELETE /locais/:id
-- **Exemplo de URL:** http://localhost:3000/locais/{id}
+- **Exemplo de URL:** http://localhost:3000/locais/:id
 - **Descrição:** Exclui um local pelo seu id.
 - **Resposta (em caso de sucesso):** application/json, HTTP Status 204 (No Content).
 - **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
