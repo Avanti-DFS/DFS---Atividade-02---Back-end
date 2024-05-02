@@ -75,6 +75,14 @@ ___
 - **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
 <br>
 
+##### GET /locais/:id
+- **Exemplo de URL:** http://localhost:3000/locais/:id
+- **Descrição:** Retorna as informações de um local específico com base no seu id.
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
+- **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
+- **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
+<br>
+
 ##### POST /locais**
 - **Exemplo de URL:** http://localhost:3000/locais
 - **Descrição:** Insere um novo local no banco de dados.
@@ -114,7 +122,7 @@ ___
     "endereco": "Novo endereço do Local B"
 }
 ```
-- **Resposta (em caso de sucesso):** application/json, HTTP Status 201 (Created).
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
 - **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
 - **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
 <br>
@@ -129,7 +137,161 @@ ___
 
 ___
 
+#### Entidade Categorias:  
+##### GET /categorias
+- **Exemplo de URL:** http://localhost:3000/categorias
+- **Descrição:** Retorna todas as categorias armazenadas no banco de dados.
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
+- **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
+<br>
 
+##### GET /categoria/:id
+- **Exemplo de URL:** http://localhost:3000/categoria/:id
+- **Descrição:** Retorna as informações de uma categoria específica com base no seu id.
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
+- **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
+- **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
+<br>
+
+##### POST /categoria**
+- **Exemplo de URL:** http://localhost:3000/categoria
+- **Descrição:** Cria uma nova categoria no banco de dados.
+- **Corpo da requisição:** em JSON:
+```json
+{
+    "categoria": String
+}
+```
+- **Exemplo de corpo da requisição:**
+```json
+{
+    "categoria": "Nome da Nova Categoria"
+}
+```
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 201 (Created).
+- **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
+<br>
+
+##### PUT /categoria/:id
+
+- **Exemplo de URL:** http://localhost:3000/categoria/:id
+- **Descrição:** Atualiza o registro de uma categoria no banco de dados a partir do seu id.
+- **Corpo da requisição:** em JSON:
+```json
+{
+    "categoria": String
+}
+```
+- **Exemplo de corpo da requisição:**
+```json
+{
+    "categoria": "Nome Atualizado da Categoria"
+}
+```
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
+- **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
+- **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
+<br>
+
+##### DELETE /categoria/:id
+- **Exemplo de URL:** http://localhost:3000/categoria/:id
+- **Descrição:** Exclui uma categoria pelo seu id.
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 204 (No Content).
+- **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
+- **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
+<br>
+
+___
+
+#### Entidade Eventos:  
+##### GET /eventos
+- **Exemplo de URL:** http://localhost:3000/eventos
+- **Descrição:** Retorna todas os eventos armazenadas no banco de dados.
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
+- **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
+<br>
+
+##### GET /evento/:id
+- **Exemplo de URL:** http://localhost:3000/evento/:id
+- **Descrição:** Retorna as informações de um evento específico com base no seu id.
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
+- **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
+- **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
+<br>
+
+##### POST /evento**
+- **Exemplo de URL:** http://localhost:3000/evento
+- **Descrição:** Cria um novo evento no banco de dados.
+- **Corpo da requisição:** em JSON:
+```json
+{
+    "nome": String,
+    "data": DateTime,
+    "descricao": String,
+    "categoria": Categoria @relation(fields: [categoria_id], references: [id]),
+    "categoria_id": Integer,
+    "local": Local @relation(fields: [local_id], references: [id]),
+    "local_id": Integer
+}
+```
+- **Exemplo de corpo da requisição:**
+```json
+{
+    "nome": "Evento A",
+    "data": "Data do evento A",
+    "descricao": "Descrição do Evento A",
+    "categoria": ,
+    "categoria_id": ,
+    "local": ,
+    "local_id": 
+}
+```
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 201 (Created).
+- **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
+<br>
+
+##### PUT /evento/:id
+
+- **Exemplo de URL:** http://localhost:3000/evento/:id
+- **Descrição:** Atualiza o registro de um evento no banco de dados a partir do seu id.
+- **Corpo da requisição:** em JSON:
+```json
+{
+    "nome": String,
+    "data": DateTime,
+    "descricao": String,
+    "categoria": Categoria @relation(fields: [categoria_id], references: [id]),
+    "categoria_id": Integer,
+    "local": Local @relation(fields: [local_id], references: [id]),
+    "local_id": Integer
+}
+```
+- **Exemplo de corpo da requisição:**
+```json
+{
+    "nome": "Evento A",
+    "data": "Data do evento A",
+    "descricao": "Descrição do Evento A",
+    "categoria": ,
+    "categoria_id": ,
+    "local": ,
+    "local_id": 
+}
+```
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
+- **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
+- **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
+<br>
+
+##### DELETE /evento/:id
+- **Exemplo de URL:** http://localhost:3000/evento/:id
+- **Descrição:** Exclui um evento pelo seu id.
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 204 (No Content).
+- **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
+- **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
+<br>
+
+___
 
 
 
