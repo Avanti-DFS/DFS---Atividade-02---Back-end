@@ -1,5 +1,3 @@
-
-
 import express from "express"
 import { routes } from "./routes/LocalRoutes.js"
 

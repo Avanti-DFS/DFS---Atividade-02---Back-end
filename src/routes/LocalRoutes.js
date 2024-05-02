@@ -1,12 +1,13 @@
 import { Router } from "express"
-import { prismaCliente } from "../database/PrismaClient.js";
 import { LocalController } from "../controller/LocalController.js";
 
 const routes = Router();
 
 const localController = new LocalController();
 
-routes.get("/", localController.findAllLocais)
+routes.get("/locais", localController.findAllLocais)
+
+routes.get("/local/:id", localController.findLocalById)
 
 routes.post("/local", localController.createLocal)
 

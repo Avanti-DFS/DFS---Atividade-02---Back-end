@@ -6,7 +6,20 @@ export class LocalController {
             const locais = await prismaCliente.local.findMany();
             response.status(200).json(locais);
         } catch (error) {
-            response.status(500).send();
+            response.status(500).send(error);
+        }
+    }
+
+    async findLocalById(request, response){
+        try {
+            const { id } = request.params
+            const local = await prismaCliente.local.findFirst();
+            if(!local){
+                response.status(404).send()
+            }
+            response.status(200).json(local);
+        } catch (error) {
+            response.status(500).send(error);
         }
     }
 
