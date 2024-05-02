@@ -17,9 +17,9 @@ model Categoria {
 
 model Local {
     id        String @id @default(uuid())
-    nome     String 
+    nome      String 
     endereco  String 
-    eventos Evento[]
+    eventos   Evento[]
     
     @@map("locais")
 }
