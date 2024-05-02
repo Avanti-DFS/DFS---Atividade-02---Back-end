@@ -17,7 +17,7 @@ model Categoria {
 
 model Local {
     id        String @id @default(uuid())
-    local     String 
+    nome     String 
     endereco  String 
     eventos Evento[]
     

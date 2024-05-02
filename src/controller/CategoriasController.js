@@ -2,13 +2,13 @@ import { prisma } from "../database/PrismaClient.js";
 
 const CategoriaController = {
     async criarCategoria(req, res) {
-      const { dados } = req.body;
-      console.log(dados.categoria);
+      const { categoria, id } = req.body;
+      // console.log(dados.categoria);
       try {
-        const novaCategoria = await prisma.categorias.create({
+        const novaCategoria = await prisma.categoria.create({
           data: {
-            id: dados.id,
-            categoria: dados.categoria,
+            id: id,
+            categoria: categoria,
           },
         });
         return res.status(201).json(novaCategoria);
@@ -20,7 +20,7 @@ const CategoriaController = {
   
     async listarCategorias(req, res) {
       try {
-        const categorias = await prisma.categorias.findMany();
+        const categorias = await prisma.categoria.findMany();
         return res.status(200).json(categorias);
       } catch (error) {
         console.error('Erro ao listar categorias:', error);
@@ -31,7 +31,7 @@ const CategoriaController = {
     async buscarCategoriaPorId(req, res) {
       const { id } = req.params;
       try {
-        const categoria = await prisma.categorias.findUnique({
+        const categoria = await prisma.categoria.findUnique({
           where: {
             id: id,
           },
@@ -50,7 +50,7 @@ const CategoriaController = {
       const { id } = req.params;
       const { categoria } = req.body;
       try {
-        const categoriaAtualizada = await prisma.categorias.update({
+        const categoriaAtualizada = await prisma.categoria.update({
           where: {
             id: id,
           },
@@ -68,7 +68,7 @@ const CategoriaController = {
     async deletarCategoria(req, res) {
       const { id } = req.params;
       try {
-        await prisma.categorias.delete({
+        await prisma.categoria.delete({
           where: {
             id: id,
           },
