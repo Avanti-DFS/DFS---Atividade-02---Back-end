@@ -10,7 +10,7 @@ Desenvolvimento de API REST para Gerenciamento de Eventos Culturais com Node.js,
 ___
 
 ## Documentação da API REST
-Esta documentação oferece detalhes sobre como usar a API REST do projeto, incluindo suas rotas, métodos e respostas esperadas.
+A documentação fornece informações detalhadas sobre a utilização desta API REST, abrangendo suas rotas, métodos e as respostas esperadas.
 
 ***
 
@@ -228,10 +228,10 @@ ___
     "nome": String,
     "data": DateTime,
     "descricao": String,
-    "categoria": Categoria @relation(fields: [categoria_id], references: [id]),
-    "categoria_id": Integer,
-    "local": Local @relation(fields: [local_id], references: [id]),
-    "local_id": Integer
+    "categoria": String,,
+    "categoria_id": String,,
+    "local": Local String,,
+    "local_id": String,
 }
 ```
 - **Exemplo de corpo da requisição:**
@@ -240,17 +240,17 @@ ___
     "nome": "Evento A",
     "data": "Data do evento A",
     "descricao": "Descrição do Evento A",
-    "categoria": ,
-    "categoria_id": ,
-    "local": ,
-    "local_id": 
+    "categoria": "Categoria do Evento A" ,
+    "categoria_id": "e657fd8b-2f5f-4e94-b7cc-d5846d3f0597",
+    "local": "Local do Evento A,
+    "local_id": "f4d11558-8c37-40e8-9eb1-82781b49e1af" 
 }
 ```
 - **Resposta (em caso de sucesso):** application/json, HTTP Status 201 (Created).
 - **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
 <br>
 
-##### PUT /evento/:id
+##### PUT /eventos/:id
 
 - **Exemplo de URL:** http://localhost:3000/evento/:id
 - **Descrição:** Atualiza o registro de um evento no banco de dados a partir do seu id.
@@ -260,10 +260,10 @@ ___
     "nome": String,
     "data": DateTime,
     "descricao": String,
-    "categoria": Categoria @relation(fields: [categoria_id], references: [id]),
-    "categoria_id": Integer,
-    "local": Local @relation(fields: [local_id], references: [id]),
-    "local_id": Integer
+    "categoria": String,,
+    "categoria_id": String,,
+    "local": Local String,,
+    "local_id": String,
 }
 ```
 - **Exemplo de corpo da requisição:**
@@ -272,10 +272,10 @@ ___
     "nome": "Evento A",
     "data": "Data do evento A",
     "descricao": "Descrição do Evento A",
-    "categoria": ,
-    "categoria_id": ,
-    "local": ,
-    "local_id": 
+    "categoria": "Categoria do Evento A" ,
+    "categoria_id": "e657fd8b-2f5f-4e94-b7cc-d5846d3f0597",
+    "local": "Local do Evento A,
+    "local_id": "f4d11558-8c37-40e8-9eb1-82781b49e1af" 
 }
 ```
 - **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
@@ -283,7 +283,7 @@ ___
 - **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
 <br>
 
-##### DELETE /evento/:id
+##### DELETE /eventos/:id
 - **Exemplo de URL:** http://localhost:3000/evento/:id
 - **Descrição:** Exclui um evento pelo seu id.
 - **Resposta (em caso de sucesso):** application/json, HTTP Status 204 (No Content).
