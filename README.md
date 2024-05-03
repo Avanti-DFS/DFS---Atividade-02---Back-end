@@ -1,6 +1,6 @@
 # Desenvolvimento de API REST para Gerenciamento de Eventos Culturais com Node.js, Express, PostgreSQL e Prisma ORM
 ## Desafio back-end | Bootcamp Desenvolvimento Full Stack | Instituto Atlântico Avanti
-Desenvolvimento de API REST para Gerenciamento de Eventos Culturais com Node.js, Express, PostgreSQL e Prisma ORM. Inclui modelagem de dados e operações CRUD.  
+Desenvolvimento de uma API REST para Gerenciamento de Eventos Culturais, utilizando Node.js, Express, PostgreSQL e Prisma ORM. Inclui modelagem de dados, operações CRUD, implementação de pesquisa e filtros para os usuários encontrarem eventos com base em categorias, locais e datas, além de recursos de autenticação e autorização para segurança e controle de acesso.  
 <br>
 **Equipe docente:**  
 - **Professora:** Jheyele Raquel  
@@ -83,7 +83,7 @@ ___
 - **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
 <br>
 
-##### POST /locais**
+##### POST /locais
 - **Exemplo de URL:** http://localhost:3000/locais
 - **Descrição:** Insere um novo local no banco de dados.
 - **Corpo da requisição:** em JSON:
@@ -153,7 +153,7 @@ ___
 - **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
 <br>
 
-##### POST /categoria**
+##### POST /categoria
 - **Exemplo de URL:** http://localhost:3000/categoria
 - **Descrição:** Cria uma nova categoria no banco de dados.
 - **Corpo da requisição:** em JSON:
@@ -219,7 +219,7 @@ ___
 - **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
 <br>
 
-##### POST /evento**
+##### POST /evento
 - **Exemplo de URL:** http://localhost:3000/evento
 - **Descrição:** Cria um novo evento no banco de dados.
 - **Corpo da requisição:** em JSON:
@@ -229,8 +229,8 @@ ___
     "data": DateTime,
     "descricao": String,
     "categoria": String,,
-    "categoria_id": String,,
-    "local": Local String,,
+    "categoria_id": String,
+    "local": Local String,
     "local_id": String,
 }
 ```
@@ -242,7 +242,7 @@ ___
     "descricao": "Descrição do Evento A",
     "categoria": "Categoria do Evento A" ,
     "categoria_id": "e657fd8b-2f5f-4e94-b7cc-d5846d3f0597",
-    "local": "Local do Evento A,
+    "local": "Local do Evento A",
     "local_id": "f4d11558-8c37-40e8-9eb1-82781b49e1af" 
 }
 ```
@@ -261,8 +261,8 @@ ___
     "data": DateTime,
     "descricao": String,
     "categoria": String,,
-    "categoria_id": String,,
-    "local": Local String,,
+    "categoria_id": String,
+    "local": Local String,
     "local_id": String,
 }
 ```
@@ -272,9 +272,9 @@ ___
     "nome": "Evento A",
     "data": "Data do evento A",
     "descricao": "Descrição do Evento A",
-    "categoria": "Categoria do Evento A" ,
+    "categoria": "Categoria do Evento A",
     "categoria_id": "e657fd8b-2f5f-4e94-b7cc-d5846d3f0597",
-    "local": "Local do Evento A,
+    "local": "Local do Evento A",
     "local_id": "f4d11558-8c37-40e8-9eb1-82781b49e1af" 
 }
 ```
@@ -293,8 +293,131 @@ ___
 
 ___
 
+### Recurso de Pesquisa de Eventos
 
+___
+ 
+#### GET /eventos/search  
 
+- **Exemplo de URL:** http://localhost:3000/evento/search
+- **Descrição:** Permite buscar eventos com base em parâmetros de consulta:
+    - **categoria**: ID da categoria do evento.
+    - **local**: ID do local onde o evento ocorrerá.
+    - **data**: Data do evento no formato YYYY-MM-DD.
+- **Exemplo de Uso:** http://localhost:3000/evento/search?categoria=3&local=5&data=2024-07-08
+    
+    Neste exemplo a URL **`/eventos/search`** é usada para buscar eventos com base nos parâmetros de pesquisa:
+    
+    - **`categoria=3`**: Este é um parâmetro de consulta na URL. Os parâmetros de consulta são usados para enviar dados para o servidor através da URL. Neste caso, **`categoria=3`** indica que estamos especificando o ID da categoria do evento que queremos buscar. O valor **`3`** é o ID da categoria.
+    - **`local=5`**: Este é outro parâmetro de consulta na URL. Aqui, **`local=5`** indica que estamos especificando o ID do local onde o evento ocorrerá. O valor **`2`** é o ID do local.
+    - **`data=2024-07-08`**: Mais um parâmetro de consulta na URL. **`data=2024-07-08`** indica que estamos especificando a data do evento que queremos buscar. O formato **`YYYY-MM-DD`** é usado para representar a data, então **`2024-07-08`** representa o dia 10 de maio de 2024.
+- **Corpo da requisição:** em JSON:
+    
+    ```json
+    {
+        "categoria": "ID da categoria do evento",
+        "local": "ID do local onde o evento ocorrerá",
+        "data": "Data do evento no formato YYYY-MM-DD"
+    }
+    ```
+    
+- **Exemplo de corpo da requisição:**
+    
+    ```json
+   {
+    "categoria": 3,
+    "local": 5,
+    "data": "2024-07-08"
+    }
+    ```
+    
+- **Resposta (em caso de sucesso):**
+    
+    ```json
+    [
+    {
+        "id": 8,
+        "nome": "Kill Bill Revival: Uma Dose Dupla de Ação e Vingança",
+        "data": "2024-07-08",
+        "descricao": "Reexibição dos Filmes Clássicos de Ação Kill Bill: Volume 1 e Kill Bill: Volume 2 de Quentin Tarantino",
+        "categoria": {
+            "id": 3,
+            "nome": "Cinema"
+        },
+        "local": {
+            "id": 5,
+            "nome": "Cineclube Independente"
+        }
+    }
+    
+    ```
+    
+- **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
+{
+    "error": "Erro ao buscar eventos: <mensagem de erro>"
+}
+<br>
 
+___
 
+### Segurança e Controle de Acesso
 
+___
+ 
+#### Autenticação JWT Middleware
+
+- **Descrição:** Verifica se o usuário possui um token JWT válido antes de permitir o acesso aos recursos protegidos.
+- **Exemplo de Usos:**
+    - **Exemplo de Uso do Token JWT -** Este exemplo demonstra como incluir o token JWT no cabeçalho da requisição para acessar recursos protegidos:
+        
+        Para acessar recursos protegidos, inclua o token JWT no cabeçalho da requisição da seguinte forma:
+        
+        ```json
+        Authorization: Bearer {token}
+        ```
+        
+        Onde **`{token}`** é o token JWT válido obtido após a autenticação.
+        
+    - **Exemplo de Aplicação do Middleware de Autenticação:** Este exemplo ilustra como aplicar o middleware de autenticação no código-fonte da aplicação:
+        
+        ```jsx
+        app.use(authenticationMiddleware);
+        ```
+        
+- **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 401 (Unauthorized).
+    - **Corpo da resposta:** "Token missing!"
+- **Resposta (em caso de falha):** application/json, HTTP Status 401 (Internal Server Unauthorized).
+    - **Corpo da resposta:** "Invalid Token"
+- **Em caso de sucesso da solicitação:** O acesso ao recurso protegido é permitido.
+<br>
+
+___
+
+#### Autorização de Administrador Middleware
+
+- **Descrição:** Verifica se o cliente autenticado é um administrador antes de permitir o acesso aos recursos protegidos. ****
+- **Exemplo de Usos:**
+    - **Exemplo de Uso do Token JWT -** Este exemplo demonstra como incluir o token JWT no cabeçalho da requisição para acessar recursos protegidos:
+        
+        Para acessar recursos protegidos, inclua o token JWT no cabeçalho da requisição da seguinte forma:
+        
+        ```json
+        Authorization: Bearer {token}
+        ```
+        
+        Onde **`{token}`** é o token JWT válido obtido após a autenticação.
+        
+    - **Exemplo de Aplicação do Middleware de Autenticação:** Este exemplo ilustra como aplicar o middleware de autenticação no código-fonte da aplicação:
+        
+        ```jsx
+        app.use(adminAuthorizationMiddleware);
+        ```
+        
+- **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 403 (Forbidden).
+    - **Corpo da resposta:** "Forbidden”
+- **Resposta (em caso de falha):** application/json, HTTP Status 401 (Internal Server Unauthorized).
+    - **Corpo da resposta:** "Invalid Token"
+- **Em caso de sucesso da solicitação:** O acesso ao recurso protegido é permitido.
+<br>
+
+___
