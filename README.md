@@ -54,11 +54,19 @@ Esse comando cria automaticamente artefatos de código essenciais para o funcion
 <br>
 
 #### Passo 05
-Como último passo, execute o comando **`db push`** fornecido pela ferramenta Prisma usando o **`npx`**, para enviar as alterações feitas no esquema do banco de dados com o Prisma para o seu banco de dados real:
+Execute o comando **`db push`** fornecido pela ferramenta Prisma usando o **`npx`**, para enviar as alterações feitas no esquema do banco de dados com o Prisma para o seu banco de dados real:
 ```
 npx prisma db push
 ```
 Isso garantirá que a estrutura do banco de dados seja atualizada de acordo com as modificações realizadas no esquema do Prisma, mantendo-os sincronizados.  
+<br>
+
+#### Passo 06
+Como último passo, atualize o arquivo **`.env`** na raiz do projeto, defininindo uma chave secreta  única e forte para autenticação JWT:
+```
+SECRET_JWT="sua_chave_secreta_aqui"
+```
+Isso prevenirá ataques de força bruta e salvaguardará a segurança da autenticação JWT em sua aplicação.
 <br>
 
 ___
