@@ -78,6 +78,7 @@ ___
 ##### GET /locais/:id
 - **Exemplo de URL:** http://localhost:3000/locais/:id
 - **Descrição:** Retorna as informações de um local específico com base no seu id.
+  - **Parâmetro de Requisição:** **`id`** (string): ID do local.
 - **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
 - **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
 - **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
@@ -108,6 +109,7 @@ ___
 
 - **Exemplo de URL:** http://localhost:3000/locais/:id
 - **Descrição:** Atualiza o registro de um local no banco de dados a partir do seu id.
+  - **Parâmetro de Requisição:** **`id`** (string): ID do local a ser atualizado.
 - **Corpo da requisição:** em JSON:
 ```json
 {
@@ -130,6 +132,7 @@ ___
 ##### DELETE /locais/:id
 - **Exemplo de URL:** http://localhost:3000/locais/:id
 - **Descrição:** Exclui um local pelo seu id.
+  - **Parâmetro de Requisição:** **`id`** (string): ID do local a ser excluído.
 - **Resposta (em caso de sucesso):** application/json, HTTP Status 204 (No Content).
 - **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
 - **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
@@ -148,6 +151,7 @@ ___
 ##### GET /categoria/:id
 - **Exemplo de URL:** http://localhost:3000/categoria/:id
 - **Descrição:** Retorna as informações de uma categoria específica com base no seu id.
+   - **Parâmetro de Requisição:** **`id`** (string): ID da categoria.
 - **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
 - **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
 - **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
@@ -176,6 +180,7 @@ ___
 
 - **Exemplo de URL:** http://localhost:3000/categoria/:id
 - **Descrição:** Atualiza o registro de uma categoria no banco de dados a partir do seu id.
+    - **Parâmetro de Requisição:** **`id`** (string): ID da categoria a ser atualizada.
 - **Corpo da requisição:** em JSON:
 ```json
 {
@@ -196,6 +201,7 @@ ___
 ##### DELETE /categoria/:id
 - **Exemplo de URL:** http://localhost:3000/categoria/:id
 - **Descrição:** Exclui uma categoria pelo seu id.
+  - **Parâmetro de Requisição:** **`id`** (string): ID da categoria a ser excluída.
 - **Resposta (em caso de sucesso):** application/json, HTTP Status 204 (No Content).
 - **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
 - **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
@@ -214,6 +220,7 @@ ___
 ##### GET /evento/:id
 - **Exemplo de URL:** http://localhost:3000/evento/:id
 - **Descrição:** Retorna as informações de um evento específico com base no seu id.
+   - **Parâmetro de Requisição:** **`id`** (string): ID do evento.
 - **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
 - **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
 - **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
@@ -254,6 +261,7 @@ ___
 
 - **Exemplo de URL:** http://localhost:3000/evento/:id
 - **Descrição:** Atualiza o registro de um evento no banco de dados a partir do seu id.
+    -  **Parâmetro de Requisição:** **`id`** (string): ID do evento a ser atualizado.
 - **Corpo da requisição:** em JSON:
 ```json
 {
@@ -286,6 +294,7 @@ ___
 ##### DELETE /eventos/:id
 - **Exemplo de URL:** http://localhost:3000/evento/:id
 - **Descrição:** Exclui um evento pelo seu id.
+  - **Parâmetro de Requisição:** **`id`** (string): ID do evento a ser excluído.
 - **Resposta (em caso de sucesso):** application/json, HTTP Status 204 (No Content).
 - **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
 - **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
@@ -293,8 +302,115 @@ ___
 
 ___
 
-### Recurso de Pesquisa de Eventos
+#### Entidade Login: 
+##### POST /login
+- **Exemplo de URL:** http://localhost:3000/login
+- **Descrição:** Autenticar um cliente e gera um token de acesso.
+- **Corpo da requisição:** em JSON:
 
+```json
+{
+    "email": String,
+    "password": String"
+}
+```
+
+- **Exemplo de corpo da requisição:**
+
+```json
+{
+    "email": "example@example.com",
+    "password": "senha123"
+}
+```
+
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
+- **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
+    - **Corpo da resposta:** ""Client Unauthorized”"
+- **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
+- **Em caso de sucesso da solicitação:** Retorna o ID, nome do cliente e um token de acesso.
+<br>
+
+___
+
+#### Entidade Clientes:  
+##### GET /clientes
+
+- **Exemplo de URL:** http://localhost:3000/clientes
+- **Descrição:** Retorna todos os clientes ou um cliente específico, dependendo dos parâmetros fornecidos na requisição.
+    - **Parâmetros de Requisição Opcionais: `clientId`** (string): ID do cliente para buscar um cliente específico.
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
+    - **Em caso de sucesso da solicitação:** Retorna uma lista de clientes ou um cliente específico, incluindo seu ID, nome, e-mail e se é um administrador.
+- **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 404 (Not Found).
+- **Resposta (em caso de falha):** application/json, HTTP Status 500 (Internal Server Error).
+
+#####  POST /cliente
+
+- **Exemplo de URL:** http://localhost:3000/cliente
+- **Descrição:** Cria uma nova categoria no banco de dados.
+- **Corpo da requisição:** em JSON:
+
+```json
+{
+    "nome": String,
+		"email": String,
+		"Password": String,
+		"isAdmin": Boolean
+}
+```
+
+- **Exemplo de corpo da requisição:**
+
+```json
+{
+    "nome": "Nome do Cliente",
+    "email": "cliente@example.com",
+    "password": "senha123",
+    "isAdmin": false
+}
+```
+
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
+    - **Em caso de sucesso da solicitação:** Retorna os dados do cliente recém-criado.
+- **Resposta (em caso de falha):** application/json, HTTP Status 409 (Conflict) ou HTTP Status 500 (Internal Server Error).
+
+##### PUT /cliente/:id
+
+- **Exemplo de URL:** http://localhost:3000/cliente/:id
+- **Descrição:** Atualiza um cliente existente no banco de dados a partir do seu id.
+    - **Parâmetros de Requisição:** **`id`** (string): ID do cliente a ser atualizado.
+- **Corpo da requisição:** em JSON:
+
+```json
+{
+    "nome": String
+}
+```
+
+- **Exemplo de corpo da requisição:**
+
+```json
+{
+    "nome": "Novo Nome do Cliente"
+}
+```
+
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 200 (OK).
+    - **Em caso de sucesso da solicitação:** Retorna os dados do cliente atualizado.
+- **Resposta (em caso de falha):** application/json, HTTP Status 409 (Conflict) ou HTTP Status 500 (Internal Server Error).
+
+#####  DELETE /cliente/:id
+
+- **Exemplo de URL:** http://localhost:3000/cliente/:id
+- **Descrição:** Exclui uma cliente pelo seu id.
+    - **Parâmetros de Requisição:** **`id`** (string): ID do cliente a ser excluído.
+- **Resposta (em caso de sucesso):** application/json, HTTP Status 204 (No Content).
+- **Resposta (em caso de falha):** application/json, HTTP Status 409 (Conflict) ou HTTP Status 500 (Internal Server Error).
+<br>
+
+___
+
+### Recurso de Pesquisa de Eventos
 ___
  
 #### GET /eventos/search  
@@ -383,12 +499,12 @@ ___
         ```jsx
         app.use(authenticationMiddleware);
         ```
-        
+
+- **Em caso de sucesso da solicitação:** O acesso ao recurso protegido é permitido.
 - **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 401 (Unauthorized).
     - **Corpo da resposta:** "Token missing!"
 - **Resposta (em caso de falha):** application/json, HTTP Status 401 (Internal Server Unauthorized).
     - **Corpo da resposta:** "Invalid Token"
-- **Em caso de sucesso da solicitação:** O acesso ao recurso protegido é permitido.
 <br>
 
 ___
@@ -412,12 +528,12 @@ ___
         ```jsx
         app.use(adminAuthorizationMiddleware);
         ```
-        
+
+- **Em caso de sucesso da solicitação:** O acesso ao recurso protegido é permitido.
 - **Resposta (em caso de recurso não encontrado):** application/json, HTTP Status 403 (Forbidden).
     - **Corpo da resposta:** "Forbidden”
 - **Resposta (em caso de falha):** application/json, HTTP Status 401 (Internal Server Unauthorized).
     - **Corpo da resposta:** "Invalid Token"
-- **Em caso de sucesso da solicitação:** O acesso ao recurso protegido é permitido.
 <br>
 
 ___
