@@ -6,7 +6,7 @@ export class LocalController {
             const locais = await prismaCliente.local.findMany();
             response.status(200).json(locais);
         } catch (error) {
-            response.status(500).send(error);
+            response.status(500).send();
         }
     }
 

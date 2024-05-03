@@ -1,4 +1,4 @@
-import { prisma } from "../database/PrismaClient.js";
+import { prismaCliente } from "../database/PrismaClient.js";
 
 const CategoriaController = {
     async criarCategoria(req, res) {
