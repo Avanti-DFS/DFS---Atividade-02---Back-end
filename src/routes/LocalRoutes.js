@@ -7,7 +7,7 @@ const routes = Router();
 
 const localController = new LocalController();
 
-routes.get("/locais", localController.findAllLocais)
+routes.get("/locais", authenticate, localController.findAllLocais)
 
 routes.get("/local/:id", authenticate, localController.findLocalById)
 
