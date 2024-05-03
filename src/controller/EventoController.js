@@ -10,6 +10,34 @@ export class EventoController {
     }
   };
 
+  async filterEvento (request, response) {
+    const { categoria, local, data } = request.query;
+    const objQuery = {
+      where: {
+        AND: [
+          categoria ? { categoria_id: categoria } : {},
+          local ? { local_id: local } : {},
+          data ? {
+            data: {
+              equals: new Date(data)
+            }
+          } : {}
+        ].filter(obj => Object.keys(obj).length > 0) 
+      },
+      include: {
+        categoria: true,
+        local: true,
+      }
+    };
+  
+    try {
+      const eventos = await prismaCliente.evento.findMany(objQuery);
+      response.json(eventos);
+    } catch (error) {
+      response.status(500).json({ error: "Erro ao buscar eventos: " + error.message });
+    }
+  };
+
   async createEvento (request, response) {
     try {
       const { nome, data, descricao, categoria_id, local_id } = request.body;
