@@ -11,10 +11,11 @@ export default function (request, response, next) {
     const token = authorization.replace('Bearer ', '').trim();
 
     try {
-        const { clienteId } = jwt.verify(token, process.env.SECRET_JWT);
+        const { clientId } = jwt.verify(token, process.env.SECRET_JWT);
+
   
-        if (!clienteId){
-            return response.status(401).json("Unauthorized");
+        if (!clientId){
+            return response.status(401).json("Unauthorized ");
         }
         
         return next();

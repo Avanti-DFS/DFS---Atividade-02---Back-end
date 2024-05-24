@@ -52,7 +52,7 @@ export class EventoController {
       });
       response.status(201).json(evento);
     } catch (error) {
-      response.status(500).send();
+      response.status(500).json({error: "Erro ao criar um  evento: " + error.message});
     }  
   };
 
@@ -97,4 +97,22 @@ export class EventoController {
         response.status(500).send();
       } 
   };
+
+  async buscarEventoPorId(req, res) {
+    const { id } = req.params;
+    try {
+      const evento = await prismaCliente.evento.findUnique({
+        where: {
+          id: id,
+        },
+      });
+      if (!evento) {
+        return res.status(404).json({ error: 'Evento não encontrado' });
+      }
+      res.json(evento);
+    } catch (error) {
+      console.error('Erro ao buscar Evento:', error);
+      res.status(500).json({ error: 'Erro ao buscar Evento' });
+    }
+  }
 }

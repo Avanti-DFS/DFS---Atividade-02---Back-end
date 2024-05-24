@@ -10,18 +10,23 @@ export class LocalController {
         }
     }
 
-    async findLocalById(request, response){
+    async buscarLocalPorId(req, res) {
+        const { id } = req.params;
         try {
-            const { id } = request.params
-            const local = await prismaCliente.local.findFirst();
-            if(!local){
-                response.status(404).send()
-            }
-            response.status(200).json(local);
+          const local = await prismaCliente.local.findUnique({
+            where: {
+              id: id,
+            },
+          });
+          if (!local) {
+            return res.status(404).json({ error: 'Local não encontrada' });
+          }
+          res.json(local);
         } catch (error) {
-            response.status(500).send(error);
+          console.error('Erro ao buscar local:', error);
+          res.status(500).json({ error: 'Erro ao buscar local' });
         }
-    }
+      }
 
     
     async createLocal(request, response){

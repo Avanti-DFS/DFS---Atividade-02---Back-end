@@ -5,7 +5,7 @@ const CategoriaController = {
       const { categoria, id } = req.body;
       // console.log(dados.categoria);
       try {
-        const novaCategoria = await prisma.categoria.create({
+        const novaCategoria = await prismaCliente.categoria.create({
           data: {
             id: id,
             categoria: categoria,
@@ -20,7 +20,7 @@ const CategoriaController = {
   
     async listarCategorias(req, res) {
       try {
-        const categorias = await prisma.categoria.findMany();
+        const categorias = await prismaCliente.categoria.findMany();
         return res.status(200).json(categorias);
       } catch (error) {
         console.error('Erro ao listar categorias:', error);
@@ -31,7 +31,7 @@ const CategoriaController = {
     async buscarCategoriaPorId(req, res) {
       const { id } = req.params;
       try {
-        const categoria = await prisma.categoria.findUnique({
+        const categoria = await prismaCliente.categoria.findUnique({
           where: {
             id: id,
           },
@@ -50,7 +50,7 @@ const CategoriaController = {
       const { id } = req.params;
       const { categoria } = req.body;
       try {
-        const categoriaAtualizada = await prisma.categoria.update({
+        const categoriaAtualizada = await prismaCliente.categoria.update({
           where: {
             id: id,
           },
@@ -68,7 +68,7 @@ const CategoriaController = {
     async deletarCategoria(req, res) {
       const { id } = req.params;
       try {
-        await prisma.categoria.delete({
+        await prismaCliente.categoria.delete({
           where: {
             id: id,
           },
