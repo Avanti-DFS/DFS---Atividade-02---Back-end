@@ -8,7 +8,8 @@ const routes = Router();
 const eventoController = new EventoController();
 
 routes.get("/eventos", authenticate, eventoController.findAllEventos);
-routes.get("/eventos/search", authenticate, eventoController.filterEvento);
+routes.get("/evento/:id", eventoController.buscarEventoPorId);
+routes.get("/eventos/search", eventoController.filterEvento);
 routes.post('/evento', authorization, eventoController.createEvento);
 routes.put("/eventos/:id", authorization, eventoController.updateEvento);
 routes.delete("/eventos/:id", authorization, eventoController.deleteEvento);
